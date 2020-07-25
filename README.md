@@ -1,6 +1,6 @@
 # KIRA
 ## A multipurpose modular Discord bot
-v1.0.0
+[Changelog](CHANGELOG.md)
 
 ### Requirements
 - A Discord bot account

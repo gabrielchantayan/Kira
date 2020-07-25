@@ -1,3 +1,10 @@
+# Commit #4
+Added `version.json`
+
+Added link to `CHANGELOG.md` in `README.md`
+
+Removed version number from `README.md`
+
 # Commit #3
 Added ability to set helper role
 
