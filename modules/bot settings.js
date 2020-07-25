@@ -5,7 +5,7 @@ var utils = require('../utils.js')          // Import utilities
 // Write guild permission data
 function writeGuildPermissionData(guildID, level, roleToAdd) {
     // Read guild data
-    guildData = JSON.parse(utils.read('guilds', guildID, true));
+    guildData = utils.read('guilds', guildID, true);
 
     // Fallbacks in case guild data doesn't have required paths
     if (guildData['permissions'] == null) {
@@ -30,7 +30,7 @@ module.exports = {
         permissions: {
             name: 'permissions',
             help: 'Sets permission levels for your guild by providing a Role ID or mentioning the role. Guild owner only.',
-            syntax: 'permissions {moderator/admin/coowner} {Role Name/Role ID}',
+            syntax: 'permissions {helper/moderator/admin/coowner} {Role Name/Role ID}',
             aliases: ['setguildrole', 'setpermissionlevel'],
             main: function (message, args) {
                 // Check for bot ownership
@@ -53,6 +53,12 @@ module.exports = {
 
                             // Check for permission levels
                             switch (args[0].toLowerCase()) {
+                                case "jmod":
+                                case "junior mod":
+                                case "helper":
+                                    writeGuildPermissionData(message.guild.id, 'helper', roleToAdd);
+                                    message.channel.send('Guild role set!')
+                                    break;
                                 case "mod":
                                 case "moderator":
                                     writeGuildPermissionData(message.guild.id, 'moderator', roleToAdd);

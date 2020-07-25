@@ -50,7 +50,7 @@ module.exports = {
         data = {};
 
         try {
-            return fs.readFileSync(`.\\data\\${module}\\${file}.json`);
+            return JSON.parse(fs.readFileSync(`.\\data\\${module}\\${file}.json`));
         }
         catch (e) {
             if (returnWithEmptyStringedArray) { return '{}' }

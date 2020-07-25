@@ -85,7 +85,7 @@ module.exports = {
 
                 // Read birthday json
                 try {
-                    birthdayJSON = JSON.parse(utils.read('birthday', 'birthdays'));
+                    birthdayJSON = utils.read('birthday', 'birthdays');
                 } catch {
                     birthdayJSON = null;
                 }
@@ -117,7 +117,7 @@ module.exports = {
                 }
 
                 // Read birthday json
-                var birthdayJSON = JSON.parse(utils.read('birthday', 'birthdays'));
+                var birthdayJSON = utils.read('birthday', 'birthdays');
 
                 // Check if null
                 if (birthdayJSON == null || !birthdayJSON.hasOwnProperty(person.id)) {
@@ -135,7 +135,7 @@ module.exports = {
             aliases: ['upcomingbdays', 'ucb'],
             main: function (message, args) {
                 // Read birthday json
-                var birthdayJSON = JSON.parse(utils.read('birthday', 'birthdays'));
+                var birthdayJSON = utils.read('birthday', 'birthdays');
 
                 // Check if null
                 if (birthdayJSON == null) {
