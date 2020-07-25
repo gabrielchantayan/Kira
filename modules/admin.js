@@ -5,30 +5,11 @@ var kira = require('../kira.js')        // Import Kira
 const fs = require('fs');               // File Stream
 const chalk = require('chalk');         // Colored Console Logging
 
-
-// Write guild permission data
-function writeGuildPermissionData(guildID, level, roleToAdd){
-    // Read guild data
-    guildData = JSON.parse(utils.read('guilds', guildID, true));
-
-    // Fallbacks in case guild data doesn't have required paths
-    if (guildData['permissions'] == null) {
-        guildData['permissions'] = {};
-    }
-
-    // Add role to guild data
-    guildData['permissions'][level] = roleToAdd;
-
-    // Write data
-    utils.write(guildData, 'guilds', guildID)
-}
-
-
 module.exports = {
     module: {
         name: 'Admin',
         description: 'Bot administration commands',
-        version: '1.1.0'
+        version: '1.1.1'
     },
 
     commands: {
@@ -82,7 +63,7 @@ module.exports = {
                     var { commands } = message.client;
 
                     // Lowercase module name
-                    moduleLower = args[0].toLowerCase()
+                    moduleLower = args.join(' ').toLowerCase()
 
                     // Check if module in commands
                     if (commands.has(moduleLower)){
@@ -169,7 +150,7 @@ module.exports = {
                     var { commands } = message.client;
 
                     // Lowercase module name
-                    moduleLower = args[0].toLowerCase();
+                    moduleLower = args.join(' ').toLowerCase();
 
                     // Check if module in commands
                     if (!commands.has(moduleLower)) {
@@ -253,7 +234,7 @@ module.exports = {
                     } = message.client;
 
                     // Lowercase module name
-                    moduleLower = args[0].toLowerCase()
+                    moduleLower = args.join(' ').toLowerCase()
 
                     // Check if module in commands
                     if (commands.has(moduleLower)) {
@@ -291,61 +272,6 @@ module.exports = {
 
 
 
-
-                } else {
-                    message.reply(config.locales.noPerms);
-                }
-            }
-        },
-
-        setguildrole: {
-            name: 'setguildrole',
-            help: 'Sets permission levels for your guild by providing a Role ID or mentioning the role. Guild owner only.',
-            syntax: 'setguildrole {moderator/admin/coowner} {Role Name/Role ID}',
-            aliases: ['setpermissionlevel'],
-            main: function (message, args) {
-                // Check for bot ownership
-                if (utils.getPermissionLevel(message) >= 4) {
-
-                    // Invalid Length
-                    if (args.length < 2){
-                        message.reply(`Please use \`${this.syntax}\``);
-                    }
-
-                    else {
-                        
-                        // Check for valid role
-                        if (message.mentions.roles.array().length == 1 || !isNaN(args[1])){
-                            var roleToAdd;
-                            if (isNaN(args[1])) {
-                                roleToAdd = message.mentions.roles.first().id;
-                            } else {
-                                roleToAdd = args[1];
-                            }
-
-
-                            // Check for permission levels
-                            switch (args[0].toLowerCase()) {
-                                case "mod":
-                                case "moderator":
-                                    writeGuildPermissionData(message.guild.id, 'moderator', roleToAdd);
-                                    message.channel.send('Guild role set!')
-                                    break;
-                                case "admin":
-                                    writeGuildPermissionData(message.guild.id, 'admin', roleToAdd);
-                                    message.channel.send('Guild role set!')
-                                    break;
-                                case "coowner":
-                                    writeGuildPermissionData(message.guild.id, 'coowner', roleToAdd);
-                                    message.channel.send('Guild role set!')
-                                    break;
-                                default:
-                                    message.reply("Sorry, please enter a valid permission level.\nValid permission levels: `mod` `moderator` `admin` `coowner`");
-                                    break;
-                            }
-                        }
-
-                    }
 
                 } else {
                     message.reply(config.locales.noPerms);
