@@ -7,7 +7,8 @@ module.exports = {
     module: {
         name: 'Images',
         description: 'Image commands',
-        version: '1.0.1'
+        version: '1.1.0',
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/images.js'
     },
 
     commands: {

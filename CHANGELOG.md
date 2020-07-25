@@ -1,3 +1,12 @@
+# Commit #5
+Added `version` field to `config.json`
+
+Added `node-fetch` dependency
+
+Added update checking for Kira
+
+Added `source` field to modules for update checking
+
 # Commit #4
 Added `version.json`
 

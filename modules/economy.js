@@ -8,7 +8,8 @@ module.exports = {
     module: {
         name: 'TEMPLATE',
         description: 'Template',
-        version: '1.0.0'
+        version: '1.0.0',
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/economy.js'
     },
 
     commands: {

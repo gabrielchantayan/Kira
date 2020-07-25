@@ -23,7 +23,8 @@ module.exports = {
     module: {
         name: 'Bot Settings',
         description: 'Change the bot\'s settings',
-        version: '1.0.0'
+        version: '1.1.0',
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/bot settings.js'
     },
 
     commands: {

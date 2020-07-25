@@ -19,5 +19,6 @@
     "images",
     "moderation",
     "bot settings"
-  ]
+  ],
+  "version": "1.0.0"
 }

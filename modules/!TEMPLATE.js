@@ -6,8 +6,9 @@ var utils = require('../utils.js')          // Import utilities
 module.exports = {
     module: {
         name: 'TEMPLATE',
-        description: 'Template',
-        version: '0.0.1'
+        description: 'Template Module',
+        version: '0.0.1',
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/!TEMPLATE.js'
     },
 
     commands: {

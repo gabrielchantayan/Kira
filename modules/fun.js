@@ -27,7 +27,8 @@ module.exports = {
     module: {
         name: 'Fun',
         description: 'Fun commands',
-        version: '1.0.0'
+        version: '1.1.0',
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/fun.js'
     },
 
     commands: {

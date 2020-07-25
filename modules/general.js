@@ -9,7 +9,8 @@ module.exports = {
     module: {
         name: 'General',
         description: 'All-purpose commands',
-        version: '1.0.0'
+        version: '1.1.0',
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/general.js'
     },
 
     commands: {

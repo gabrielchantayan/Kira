@@ -4,6 +4,7 @@ const Discord = require('discord.js');          // Discord
 const bot = new Discord.Client();               // Bot object
 const date = require('date-and-time');          // Dates
 const chalk = require('chalk');                 // Colored Console Logging
+const fetch = require('node-fetch');            // HTTP requests
 
 // Files
 var config = require('./config.json');          // Config
@@ -91,18 +92,28 @@ for (const fileName of commandFiles) {
     console.log('Finished loading modules')
 }
 
-/*
-bot.commands{
-    module {
-        commands
+
+
+// 
+////////////////////////////
+//    VERSION CHECKING    //
+////////////////////////////
+// 
+
+function checkVersion(json) {
+    if (coreUtils.checkIfGreaterVersionNumber(config.version, json.version)) {
+        console.log(chalk `{green [}{greenBright NOTICE}{green ]} There is an update available for Kira!`);
+        console.log(chalk `{cyan Current version: }{cyanBright ${config.version}}`);
+        console.log(chalk `{cyan Latest version: }{cyanBright ${json.version}}`);
+    } else {
+        console.log(chalk `{cyanBright No updates available}`);
     }
 }
-*/
 
 
-
-
-
+fetch('https://raw.githubusercontent.com/gabrielchantayan/Kira/master/version.json')
+    .then(res => res.json())
+    .then(json => checkVersion(json));
 // modules = [];
 
 
@@ -116,7 +127,7 @@ bot.commands{
 
 
 bot.on('ready', () => {
-    console.log(chalk`{green Logged in as }{greenBright ${bot.user.tag}}!`);
+    console.log(chalk`{green Logged in as }{greenBright ${bot.user.tag}}{green !}`);
 });
 
 bot.on('message', message => {

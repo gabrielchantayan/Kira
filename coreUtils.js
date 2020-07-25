@@ -25,5 +25,19 @@ module.exports = {
 
         // Else return false
         return [false];
+    },
+
+    parseVersionNumber: function (number) {
+        return number.split('.')
+    },
+
+    checkIfGreaterVersionNumber: function(currentNumber, requestedNumber){
+        currentNumber = currentNumber.split('.'),
+        requestedNumber = requestedNumber.split('.')
+
+        if (currentNumber[0] < requestedNumber[0]) return true;
+        else if (currentNumber[1] < requestedNumber[1]) return true;
+        else if (currentNumber[2] < requestedNumber[2]) return true;
+        else return false;  
     }
 }
