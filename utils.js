@@ -172,12 +172,12 @@ module.exports = {
     //     "thumbnail" : "Optional.png",
     //     "image" : "Optional.png",
     //     "color" : "#optional",
-    //     "fields" : {
+    //     "fields" : [
     //         ["name", "content"],
     //         ["name", "content"],
     //         ["name", "content", "inline"],
     //         ["name", "content", "inline"]
-    //     }
+    //     ]
     // }
     buildEmbed: function(data) {
         // Create the embed
@@ -228,5 +228,10 @@ module.exports = {
     // Check for valid role and return role ID
     checkForValidRoleAndReturnRoleID: function(role){
 
+    },
+
+    // Capitalize
+    capitalize: function(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
     }
 }

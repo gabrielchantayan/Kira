@@ -8,7 +8,8 @@ module.exports = {
         name: 'Images',
         description: 'Image commands',
         version: '1.1.0',
-        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/images.js'
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/images.js',
+        authors: ['Gab#2302']
     },
 
     commands: {

@@ -10,7 +10,8 @@ module.exports = {
         name: 'Admin',
         description: 'Bot administration commands',
         version: '1.2.0',
-        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/admin.js'
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/admin.js',
+        authors: ['Gab#2302']
     },
 
     commands: {

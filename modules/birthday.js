@@ -57,7 +57,8 @@ module.exports = {
         name: 'Birthday',
         description: 'Birthdays',
         version: '0.0.2',
-        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/birthday.js'
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/birthday.js',
+        authors: ['Gab#2302']
     },
 
     commands: {

@@ -1,3 +1,20 @@
+# Commit #7
+**27 July 2020**
+
+Added `authors` field to modules
+
+Added `profile` module
+
+Added `profile` command
+
+Added `profileset` command
+
+Moved birthdays to `profile`
+
+Removed `birthday` module folder
+
+Removed `birthday.js` from auto-load
+
 # Commit #6
 **27 July, 2020**
 

@@ -8,7 +8,8 @@ module.exports = {
         name: 'Moderation',
         description: 'A moderation module',
         version: '1.1.0',
-        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/moderation.js'
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/moderation.js',
+        authors: ['Gab#2302']
     },
 
     commands: {

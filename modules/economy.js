@@ -9,7 +9,8 @@ module.exports = {
         name: 'TEMPLATE',
         description: 'Template',
         version: '1.0.0',
-        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/economy.js'
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/economy.js',
+        authors: ['Gab#2302']
     },
 
     commands: {

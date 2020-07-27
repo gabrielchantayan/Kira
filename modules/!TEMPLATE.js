@@ -8,7 +8,8 @@ module.exports = {
         name: 'TEMPLATE',
         description: 'Template Module',
         version: '0.0.1',
-        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/!TEMPLATE.js'
+        source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/!TEMPLATE.js',
+        authors: ['Gab#2302']
     },
 
     commands: {

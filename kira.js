@@ -139,7 +139,7 @@ function checkModuleVersion(json, module) {
 
 // Loop through files
 for (var moduleName in file) {
-    console.log(file[moduleName]['module']['version'])
+    // console.log(file[moduleName]['module']['version'])
 
 }
 
