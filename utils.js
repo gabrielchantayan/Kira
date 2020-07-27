@@ -133,7 +133,7 @@ module.exports = {
 
         // Get the guild data
         var guildData = {};
-        guildData = JSON.parse(this.read('guilds', guild.id, parsedData = true))
+        guildData = this.read('guilds', guild.id)
 
         // This code is stupidly written, and could be written better.
         // However, this is the only way I could get it to work because

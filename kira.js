@@ -11,6 +11,7 @@ var config = require('./config.json');          // Config
 var coreUtils = require('./coreUtils.js');      // Core utilities
 var utils = require('./utils.js');              // Other Utilities
 const token = require('./token.json');          // Bot Token
+const version = require('./version.json');      // Version number
 
 var prefixes = config.prefixes;                 // All bot prefixes
 var processingCommands = true;                  // If the bot is processing commands or not
@@ -100,10 +101,35 @@ for (const fileName of commandFiles) {
 ////////////////////////////
 // 
 
-function checkVersion(json) {
-    if (coreUtils.checkIfGreaterVersionNumber(config.version, json.version)) {
+// Kira version checking
+
+function checkKiraVersion(json) {
+    if (coreUtils.checkIfGreaterVersionNumber(version.version, json.version)) {
         console.log(chalk `{green [}{greenBright NOTICE}{green ]} There is an update available for Kira!`);
-        console.log(chalk `{cyan Current version: }{cyanBright ${config.version}}`);
+        console.log(chalk `{cyan Current version: }{cyanBright ${version.version}}`);
+        console.log(chalk `{cyan Latest version: }{cyanBright ${json.version}}`);
+    } else {
+        console.log(chalk `{cyanBright No updates available}`);
+    }
+}
+
+try {
+    fetch('https://raw.githubusercontent.com/gabrielchantayan/Kira/master/version.json')
+        .then(res => res.json())
+        .then(json => checkKiraVersion(json));
+} catch (e) {
+    console.log(`${chalk.red('[ERROR]')} Unable to check for updates`);
+}
+
+
+// Module version checking
+
+function checkModuleVersion(json, module) {
+    
+    
+    if (coreUtils.checkIfGreaterVersionNumber(version, json.version)) {
+        console.log(chalk `{green [}{greenBright NOTICE}{green ]} There is an update available for Kira!`);
+        console.log(chalk `{cyan Current version: }{cyanBright ${version}}`);
         console.log(chalk `{cyan Latest version: }{cyanBright ${json.version}}`);
     } else {
         console.log(chalk `{cyanBright No updates available}`);
@@ -111,11 +137,11 @@ function checkVersion(json) {
 }
 
 
-fetch('https://raw.githubusercontent.com/gabrielchantayan/Kira/master/version.json')
-    .then(res => res.json())
-    .then(json => checkVersion(json));
-// modules = [];
+// Loop through files
+for (var moduleName in file) {
+    console.log(file[moduleName]['module']['version'])
 
+}
 
 
 
