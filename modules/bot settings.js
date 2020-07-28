@@ -5,10 +5,12 @@ var utils = require('../utils.js')          // Import utilities
 // Write guild permission data
 function writeGuildPermissionData(guildID, level, roleToAdd) {
     // Read guild data
-    guildData = utils.read('guilds', guildID, true);
+    var guildData = utils.read('guilds', guildID);
+
+    if (guildData == null || guildData == undefined) guildData = {}
 
     // Fallbacks in case guild data doesn't have required paths
-    if (guildData['permissions'] == null) {
+    if (guildData['permissions'] == null || guildData['permissions'] == undefined || !guildData.hasOwnProperty('permissions')) {
         guildData['permissions'] = {};
     }
 
@@ -23,7 +25,7 @@ module.exports = {
     module: {
         name: 'Bot Settings',
         description: 'Change the bot\'s settings',
-        version: '1.1.0',
+        version: '1.1.1',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/bot settings.js',
         authors: ['Gab#2302']
     },

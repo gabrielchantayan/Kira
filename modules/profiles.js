@@ -112,9 +112,9 @@ module.exports = {
                         profiles[message.author.id] = {}
                     }
 
-                    args[0] = args[0].toLowerCase();
+                    // args[0] = args[0].toLowerCase();
 
-                    switch (args[0]){
+                    switch (args[0].toLowerCase()) {
                         // Join args[1]..[n] with space
                         case 'name':
                         case 'occupation':

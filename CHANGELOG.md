@@ -1,3 +1,8 @@
+# Commit #10
+**28 July 2020**
+
+Hotfix where on Linux systems for *whatever* reason files wouldn't save
+
 # Commit #9
 **27 July 2020**
 

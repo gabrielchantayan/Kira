@@ -14,21 +14,21 @@ debug = {
 
 module.exports = {
 
-    version : '1.1.0',
+    version : '1.1.1',
 
     // Write function
     write: function (data, module, file) {
 
         // Check if directory exists. If not, make it
-        if (!fs.existsSync(`.\\data\\${module}`)) {
-            fs.mkdirSync(`.\\data\\${module}`);
+        if (!fs.existsSync(__dirname + `/data/${module}`)) {
+            fs.mkdirSync(__dirname + `/data/${module}`);
         }
 
         // Strinify data
         let stringifiedData = JSON.stringify(data, null, 2);
 
         // Write to ./data/MODULE/FILE.json
-        fs.writeFile(`.\\data\\${module}\\${file}.json`, stringifiedData, (err) => {
+        fs.writeFile(__dirname + `/data/${module}/${file}.json`, stringifiedData, (err) => {
             if (err) debug.log(err);
         });
     },
@@ -48,9 +48,8 @@ module.exports = {
         //     return parsedData;
         // });
         data = {};
-
         try {
-            return JSON.parse(fs.readFileSync(`.\\data\\${module}\\${file}.json`));
+            return JSON.parse(fs.readFileSync(__dirname + `/data/${module}/${file}.json`));
         }
         catch (e) {
             if (returnWithEmptyStringedArray) { return '{}' }
@@ -135,6 +134,7 @@ module.exports = {
         var guildData = {};
         guildData = this.read('guilds', guild.id)
 
+
         // This code is stupidly written, and could be written better.
         // However, this is the only way I could get it to work because
         // it is 4am and I just want to finish this.
@@ -146,7 +146,7 @@ module.exports = {
         }
 
         // Return 0 if no data avalible
-        if (guildData == {}) return 0;
+        if (guildData == {} || guildData == null || guildData == undefined) return 0;
 
         // Check for co-owner role
         else if (guildData["permissions"]["coowner"] != null && roles.includes(guildData["permissions"]["coowner"])) return 4;
