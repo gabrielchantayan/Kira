@@ -13,7 +13,7 @@ module.exports = {
     module: {
         name: 'Profiles',
         description: 'User profiles',
-        version: '1.0.1',
+        version: '1.1.1',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/profile.js',
         authors: ['Gab#2302']
     },
@@ -111,6 +111,8 @@ module.exports = {
                     if (!profiles.hasOwnProperty(message.author.id)){
                         profiles[message.author.id] = {}
                     }
+
+                    args[0] = args[0].toLowerCase();
 
                     switch (args[0]){
                         // Join args[1]..[n] with space

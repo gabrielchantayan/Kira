@@ -1,6 +1,11 @@
 # Commit #9
 **27 July 2020**
 
+Fix bug where `profileset` is case-sensitive
+
+# Commit #9
+**27 July 2020**
+
 Added *"Information about {BOT}* section to the `bot` command, linking to the Github.
 
 Added `socials` command to add social media to profiles
