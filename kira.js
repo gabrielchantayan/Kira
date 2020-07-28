@@ -124,24 +124,29 @@ try {
 
 // Module version checking
 
-function checkModuleVersion(json, module) {
-    
-    
-    if (coreUtils.checkIfGreaterVersionNumber(version, json.version)) {
-        console.log(chalk `{green [}{greenBright NOTICE}{green ]} There is an update available for Kira!`);
-        console.log(chalk `{cyan Current version: }{cyanBright ${version}}`);
-        console.log(chalk `{cyan Latest version: }{cyanBright ${json.version}}`);
-    } else {
-        console.log(chalk `{cyanBright No updates available}`);
-    }
-}
+// function checkModuleVersion(json, module) {
+//     if (coreUtils.checkIfGreaterVersionNumber(module['version'], json.version)) {
+//         console.log(chalk `{green [}{greenBright NOTICE}{green ]} There is an update available for the module {greenbright ${module['name']}}`);
+//         console.log(chalk `{cyan Current version: }{cyanBright ${version}}`);
+//         console.log(chalk `{cyan Latest version: }{cyanBright ${module['version']}}`);
+//         console.log(chalk `You can download the update here: {blueBright ${module['source']}}`);
+//     } else {
+//         console.log(chalk `{cyanBright No updates available}`);
+//     }
+// }
 
 
-// Loop through files
-for (var moduleName in file) {
-    // console.log(file[moduleName]['module']['version'])
-
-}
+// // Loop through files
+// for (var moduleName in file) {
+//     // console.log(file[moduleName]['module']['version'])
+//     try {
+//         fetch(file[moduleName]['module']['source'])
+//             .then(res => res.body())
+//             .then(res => checkModuleVersion(res), file[moduleName]['module']);
+//     } catch (e) {
+//         console.log(`${chalk.red('[ERROR]')} Unable to check for update for ${chalk.redBright(file[moduleName]['module']['name'])}`);
+//     }
+// }
 
 
 

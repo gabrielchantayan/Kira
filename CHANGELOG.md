@@ -1,5 +1,18 @@
+# Commit #9
+**27 July 2020**
+
+Added *"Information about {BOT}* section to the `bot` command, linking to the Github.
+
+Added `socials` command to add social media to profiles
+
+Fixed formatting in changelog for Commit #8
+
+Disabled module version checking code for now
+
+
 # Commit #8
 **27 July 2020**
+
 Added `removefromprofile` command
 
 Added `profileremove` alias for `removefromprofile`

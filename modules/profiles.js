@@ -4,7 +4,7 @@ var utils = require('../utils.js')          // Import utilities
 
 var profiles = require('../data/profiles/profiles.json')    // Import profiles
 
-var aspects = ['name', 'gender', 'pronouns', 'color', 'country', 'region', 'occupation', 'languages', 'likes', 'dislikes', 'favshow', 'favmovie'];
+var aspects = ['name', 'gender', 'pronouns', 'color', 'country', 'region', 'occupation', 'languages', 'likes', 'dislikes', 'favshow', 'favmovie', 'socials'];
 
 var defaultColors = ['c03221','ba5a31', '2c423f', 'd4e4bc', '96abc7', '730513', '4e6b67', '56fcef', '07f0c5', '055f63', '327da8', '064894', '1f7d77'];
 
@@ -66,6 +66,15 @@ module.exports = {
 
                     if (profiles[person.id].hasOwnProperty('favshow')) dataForEmbed.fields.push(['Favorite TV Show', profiles[person.id]['favshow']]);
                     if (profiles[person.id].hasOwnProperty('favmovie')) dataForEmbed.fields.push(['Favorite Movie', profiles[person.id]['favmovie']]);
+
+                    if (profiles[person.id].hasOwnProperty('socials')){
+                        var listOfSocials = [];
+                        
+                        for (social in profiles[person.id]['socials']) {
+                            listOfSocials.push(`[${social}](${profiles[person.id]['socials'][social]})`)
+                        }
+                        dataForEmbed.fields.push(['Socials', `${listOfSocials.join('\n')}`]);
+                    }
 
                     // Custom fields
                     // Used for non-profile modules
@@ -200,6 +209,78 @@ module.exports = {
                     }
                 }
             }
+        },
+
+        profilesocials: {
+            name: 'profilesocials',
+            help: 'Add/remove a social media profile',
+            syntax: 'profilesocials {add/remove} {Name} [Link]',
+            aliases: ['socials'],
+            main: function (message, args) {
+
+                // Check for arguments
+                switch (args[0].toLowerCase()){
+
+                    // Add social
+                    case 'add':
+                    case 'set':
+
+                        // Check length
+                        if (args.length < 3){
+                            message.reply(`please use \`profilesocials ${args[0]} {Name} {Link}\``);
+                        } else {
+
+                            // Check if has socials field
+                            if (!profiles[message.author.id].hasOwnProperty('socials')) {
+                                profiles[message.author.id]['socials'] = {}
+                            }
+
+                            var soc = args.slice(1, args.length - 1).join(' ')
+
+                            // Check if link begins w http:// or https://
+                            if (args.slice(-1)[0].startsWith('http://') || args.slice(-1)[0].startsWith('https://')){
+                                profiles[message.author.id]['socials'][`${soc}`] = args.slice(-1)[0]
+                            } else {
+                                profiles[message.author.id]['socials'][`${soc}`] = 'http://' + args.slice(-1)[0]
+                            }
+
+
+                            message.reply(`added ${soc}!`);
+
+                            utils.write(profiles, 'profiles', 'profiles')
+
+                        }
+                        break;
+                    
+                    case 'remove':
+                    case 'delete':
+                        if (args.length < 2) {
+                            message.reply(`please use \`profilesocials ${args[0]} {Name}\``);
+                        } else {
+                            var soc = args.slice(1, args.length).join(' ')
+
+                            // Check if has socials field
+                            if (!profiles[message.author.id].hasOwnProperty('socials')) {
+                                profiles[message.author.id]['socials'] = {}
+                            }
+
+                            if (profiles[message.author.id]['socials'].hasOwnProperty(soc)) {
+                                delete profiles[message.author.id]['socials'][soc];
+                            }
+
+                            message.reply(`removed ${soc}!`);
+
+                            utils.write(profiles, 'profiles', 'profiles')
+
+                        }
+                        break;
+
+                    default:
+                        message.reply(`${config.locales.syntaxError} \`${this.syntax}\``);
+                        break;
+                }
+            }
+            
         }
     }
 }
