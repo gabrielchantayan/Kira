@@ -9,7 +9,7 @@ module.exports = {
     module: {
         name: 'General',
         description: 'All-purpose commands',
-        version: '1.1.1',
+        version: '1.1.2',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/general.js',
         authors: ['Gab#2302']
     },
@@ -169,9 +169,6 @@ module.exports = {
                 // commands.forEach(function (mod, cms){
 
                 // });
-
-                var cmds = commands.map(command => command.name);
-                var help = commands.map(command => command.help);
 
                 if(!args.length) {
                     data.push('Here\'s a list of all my commands:');

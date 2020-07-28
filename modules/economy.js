@@ -6,9 +6,9 @@ var utils = require('../utils.js')                      // Import utilities
 
 module.exports = {
     module: {
-        name: 'TEMPLATE',
-        description: 'Template',
-        version: '1.0.0',
+        name: 'Economy',
+        description: 'Economy commands',
+        version: '0.0.1',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/economy.js',
         authors: ['Gab#2302']
     },

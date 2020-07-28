@@ -1,3 +1,14 @@
+# Commit #11
+**28 July 2020**
+
+Added message when using `shutdown` command
+
+Cleaned up `profiles.js` code
+
+Removed `economy.js` and `moderation.js` from config auto-load
+
+Removed redundant code from `general.js`
+
 # Commit #10
 **28 July 2020**
 

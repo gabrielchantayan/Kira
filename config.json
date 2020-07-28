@@ -12,13 +12,11 @@
   },
   "debugEnabled": false,
   "modules": [
-    "fun",
     "admin",
-    "economy",
-    "general",
-    "images",
-    "moderation",
     "bot settings",
+    "general",
+    "fun",
+    "images",
     "profiles"
   ]
 }

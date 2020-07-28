@@ -8,12 +8,11 @@ var aspects = ['name', 'gender', 'pronouns', 'color', 'country', 'region', 'occu
 
 var defaultColors = ['c03221','ba5a31', '2c423f', 'd4e4bc', '96abc7', '730513', '4e6b67', '56fcef', '07f0c5', '055f63', '327da8', '064894', '1f7d77'];
 
-
 module.exports = {
     module: {
         name: 'Profiles',
         description: 'User profiles',
-        version: '1.1.2',
+        version: '1.1.3',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/profile.js',
         authors: ['Gab#2302']
     },
@@ -34,7 +33,15 @@ module.exports = {
 
                 // Check if profile exists in file
                 if (person.id in profiles) {
-                    
+
+                    // Condense code
+                    function checkForAndPush(field, inline = false, name = utils.capitalize(field)) {
+                        if (profiles[person.id].hasOwnProperty(field)) {
+                            dataForEmbed.fields.push([name, profiles[person.id][field], inline]);
+                        }
+                    }
+
+                    // Create data for embed
                     var dataForEmbed = {
                         'title': `${person.username}'s profile`,
                         'thumbnail': `${person.avatarURL()}`,
@@ -45,27 +52,23 @@ module.exports = {
                     if (profiles[person.id].hasOwnProperty('color')) dataForEmbed.color = `#${profiles[person.id]['color']}`
 
                     // Add default fields
-                    if (profiles[person.id].hasOwnProperty('name')) dataForEmbed.fields.push(['Name', profiles[person.id]['name']]);
-
-                    if (profiles[person.id].hasOwnProperty('occupation')) dataForEmbed.fields.push(['Occupation', profiles[person.id]['occupation']]);
-
-                    if (profiles[person.id].hasOwnProperty('gender')) dataForEmbed.fields.push(['Gender', utils.capitalize(profiles[person.id]['gender']), true]);
-                    if (profiles[person.id].hasOwnProperty('pronouns')) dataForEmbed.fields.push(['Pronouns', profiles[person.id]['pronouns'], true]);
-
+                    checkForAndPush('name');
+                    checkForAndPush('gender', true);
+                    checkForAndPush('pronouns', true);
+                    checkForAndPush('occupation');
+                    
                     var location = '';
                     if (profiles[person.id].hasOwnProperty('region')) location += profiles[person.id]['region'];
                     if (profiles[person.id].hasOwnProperty('region') && profiles[person.id].hasOwnProperty('country')) location += ', ';
                     if (profiles[person.id].hasOwnProperty('country')) location += profiles[person.id]['country'];
 
-                    if (profiles[person.id].hasOwnProperty('languages')) dataForEmbed.fields.push(['Languages', profiles[person.id]['languages']]);
-
                     if (location != '') dataForEmbed.fields.push(['Location', location]);
 
-                    if (profiles[person.id].hasOwnProperty('likes')) dataForEmbed.fields.push(['Likes', profiles[person.id]['likes'], true]);
-                    if (profiles[person.id].hasOwnProperty('dislikes')) dataForEmbed.fields.push(['Dislikes', profiles[person.id]['dislikes'], true]);
-
-                    if (profiles[person.id].hasOwnProperty('favshow')) dataForEmbed.fields.push(['Favorite TV Show', profiles[person.id]['favshow']]);
-                    if (profiles[person.id].hasOwnProperty('favmovie')) dataForEmbed.fields.push(['Favorite Movie', profiles[person.id]['favmovie']]);
+                    checkForAndPush('languages');
+                    checkForAndPush('likes', true);
+                    checkForAndPush('dislikes', true);
+                    checkForAndPush('favshow', true, 'Favorite TV Show');
+                    checkForAndPush('favmovie', true, 'Favorite Movie');
 
                     if (profiles[person.id].hasOwnProperty('socials')){
                         var listOfSocials = [];
@@ -152,7 +155,7 @@ module.exports = {
                         // Gender
                         case 'gender':
                             // Set data
-                            profiles[message.author.id]['gender'] = args[1];
+                            profiles[message.author.id]['gender'] = utils.capitalize(args[1]);
 
                             // Auto-set pronouns 
                             if (args[1].toLowerCase() == 'male') profiles[message.author.id]['pronouns'] = 'he/him';
@@ -257,6 +260,7 @@ module.exports = {
                             }
                             break;
                         
+                        // Remove socials
                         case 'remove':
                         case 'delete':
                             if (args.length < 2) {

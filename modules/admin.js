@@ -9,7 +9,7 @@ module.exports = {
     module: {
         name: 'Admin',
         description: 'Bot administration commands',
-        version: '1.2.0',
+        version: '1.2.1',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/admin.js',
         authors: ['Gab#2302']
     },
@@ -23,6 +23,7 @@ module.exports = {
             main: function (message, args) {
                 // Check for bot ownership
                 if (utils.getPermissionLevel(message) == 6){
+                    message.channel.send('Bye bye!');
                     // Reply with pong
                     message.client.destroy();
                 } else {
