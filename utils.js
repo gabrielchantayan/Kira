@@ -14,7 +14,7 @@ debug = {
 
 module.exports = {
 
-    version : '1.1.1',
+    version : '1.1.2',
 
     // Write function
     write: function (data, module, file) {
@@ -26,6 +26,8 @@ module.exports = {
 
         // Strinify data
         let stringifiedData = JSON.stringify(data, null, 2);
+
+        console.log(__dirname + `/data/${module}/${file}.json`)
 
         // Write to ./data/MODULE/FILE.json
         fs.writeFile(__dirname + `/data/${module}/${file}.json`, stringifiedData, (err) => {

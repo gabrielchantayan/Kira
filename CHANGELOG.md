@@ -1,6 +1,13 @@
 # Commit #10
 **28 July 2020**
 
+Added `social` alias for `socials`
+
+More Linux fix stuff
+
+# Commit #10
+**28 July 2020**
+
 Hotfix where on Linux systems for *whatever* reason files wouldn't save
 
 # Commit #9

@@ -13,7 +13,7 @@ module.exports = {
     module: {
         name: 'Profiles',
         description: 'User profiles',
-        version: '1.1.1',
+        version: '1.1.2',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/profile.js',
         authors: ['Gab#2302']
     },
@@ -217,69 +217,73 @@ module.exports = {
             name: 'profilesocials',
             help: 'Add/remove a social media profile',
             syntax: 'profilesocials {add/remove} {Name} [Link]',
-            aliases: ['socials'],
+            aliases: ['socials', 'social'],
             main: function (message, args) {
 
-                // Check for arguments
-                switch (args[0].toLowerCase()){
+                
+                if (args.length < 2) {
+                    message.reply(`${config.locales.syntaxError} \`${this.syntax}\``);
+                } else { // Check for arguments
+                    switch (args[0].toLowerCase()){
 
-                    // Add social
-                    case 'add':
-                    case 'set':
+                        // Add social
+                        case 'add':
+                        case 'set':
 
-                        // Check length
-                        if (args.length < 3){
-                            message.reply(`please use \`profilesocials ${args[0]} {Name} {Link}\``);
-                        } else {
-
-                            // Check if has socials field
-                            if (!profiles[message.author.id].hasOwnProperty('socials')) {
-                                profiles[message.author.id]['socials'] = {}
-                            }
-
-                            var soc = args.slice(1, args.length - 1).join(' ')
-
-                            // Check if link begins w http:// or https://
-                            if (args.slice(-1)[0].startsWith('http://') || args.slice(-1)[0].startsWith('https://')){
-                                profiles[message.author.id]['socials'][`${soc}`] = args.slice(-1)[0]
+                            // Check length
+                            if (args.length < 3){
+                                message.reply(`please use \`profilesocials ${args[0]} {Name} {Link}\``);
                             } else {
-                                profiles[message.author.id]['socials'][`${soc}`] = 'http://' + args.slice(-1)[0]
+
+                                // Check if has socials field
+                                if (!profiles[message.author.id].hasOwnProperty('socials')) {
+                                    profiles[message.author.id]['socials'] = {}
+                                }
+
+                                var soc = args.slice(1, args.length - 1).join(' ')
+
+                                // Check if link begins w http:// or https://
+                                if (args.slice(-1)[0].startsWith('http://') || args.slice(-1)[0].startsWith('https://')){
+                                    profiles[message.author.id]['socials'][`${soc}`] = args.slice(-1)[0]
+                                } else {
+                                    profiles[message.author.id]['socials'][`${soc}`] = 'http://' + args.slice(-1)[0]
+                                }
+
+
+                                message.reply(`added ${soc}!`);
+
+                                utils.write(profiles, 'profiles', 'profiles')
+
                             }
+                            break;
+                        
+                        case 'remove':
+                        case 'delete':
+                            if (args.length < 2) {
+                                message.reply(`please use \`profilesocials ${args[0]} {Name}\``);
+                            } else {
+                                var soc = args.slice(1, args.length).join(' ')
 
+                                // Check if has socials field
+                                if (!profiles[message.author.id].hasOwnProperty('socials')) {
+                                    profiles[message.author.id]['socials'] = {}
+                                }
 
-                            message.reply(`added ${soc}!`);
+                                if (profiles[message.author.id]['socials'].hasOwnProperty(soc)) {
+                                    delete profiles[message.author.id]['socials'][soc];
+                                }
 
-                            utils.write(profiles, 'profiles', 'profiles')
+                                message.reply(`removed ${soc}!`);
 
-                        }
-                        break;
-                    
-                    case 'remove':
-                    case 'delete':
-                        if (args.length < 2) {
-                            message.reply(`please use \`profilesocials ${args[0]} {Name}\``);
-                        } else {
-                            var soc = args.slice(1, args.length).join(' ')
+                                utils.write(profiles, 'profiles', 'profiles')
 
-                            // Check if has socials field
-                            if (!profiles[message.author.id].hasOwnProperty('socials')) {
-                                profiles[message.author.id]['socials'] = {}
                             }
+                            break;
 
-                            if (profiles[message.author.id]['socials'].hasOwnProperty(soc)) {
-                                delete profiles[message.author.id]['socials'][soc];
-                            }
-
-                            message.reply(`removed ${soc}!`);
-
-                            utils.write(profiles, 'profiles', 'profiles')
-
-                        }
-                        break;
-
-                    default:
-                        message.reply(`${config.locales.syntaxError} \`${this.syntax}\``);
-                        break;
+                        default:
+                            message.reply(`${config.locales.syntaxError} \`${this.syntax}\``);
+                            break;
+                    }
                 }
             }
             
