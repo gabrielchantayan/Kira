@@ -1,3 +1,13 @@
+# Commit #8
+**27 July 2020**
+Added `removefromprofile` command
+
+Added `profileremove` alias for `removefromprofile`
+
+Added *occupation*, *languages*, *likes*, *dislikes*, *favshow*, and *favmovie* fields to profiles
+
+Cleaned up profile field setting code
+
 # Commit #7
 **27 July 2020**
 

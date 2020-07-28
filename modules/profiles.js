@@ -4,7 +4,7 @@ var utils = require('../utils.js')          // Import utilities
 
 var profiles = require('../data/profiles/profiles.json')    // Import profiles
 
-var aspects = ['name', 'gender', 'pronouns', 'color', 'country', 'region'];
+var aspects = ['name', 'gender', 'pronouns', 'color', 'country', 'region', 'occupation', 'languages', 'likes', 'dislikes', 'favshow', 'favmovie'];
 
 var defaultColors = ['c03221','ba5a31', '2c423f', 'd4e4bc', '96abc7', '730513', '4e6b67', '56fcef', '07f0c5', '055f63', '327da8', '064894', '1f7d77'];
 
@@ -13,7 +13,7 @@ module.exports = {
     module: {
         name: 'Profiles',
         description: 'User profiles',
-        version: '0.0.1',
+        version: '1.0.1',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/profile.js',
         authors: ['Gab#2302']
     },
@@ -47,6 +47,8 @@ module.exports = {
                     // Add default fields
                     if (profiles[person.id].hasOwnProperty('name')) dataForEmbed.fields.push(['Name', profiles[person.id]['name']]);
 
+                    if (profiles[person.id].hasOwnProperty('occupation')) dataForEmbed.fields.push(['Occupation', profiles[person.id]['occupation']]);
+
                     if (profiles[person.id].hasOwnProperty('gender')) dataForEmbed.fields.push(['Gender', utils.capitalize(profiles[person.id]['gender']), true]);
                     if (profiles[person.id].hasOwnProperty('pronouns')) dataForEmbed.fields.push(['Pronouns', profiles[person.id]['pronouns'], true]);
 
@@ -55,8 +57,15 @@ module.exports = {
                     if (profiles[person.id].hasOwnProperty('region') && profiles[person.id].hasOwnProperty('country')) location += ', ';
                     if (profiles[person.id].hasOwnProperty('country')) location += profiles[person.id]['country'];
 
+                    if (profiles[person.id].hasOwnProperty('languages')) dataForEmbed.fields.push(['Languages', profiles[person.id]['languages']]);
+
                     if (location != '') dataForEmbed.fields.push(['Location', location]);
 
+                    if (profiles[person.id].hasOwnProperty('likes')) dataForEmbed.fields.push(['Likes', profiles[person.id]['likes'], true]);
+                    if (profiles[person.id].hasOwnProperty('dislikes')) dataForEmbed.fields.push(['Dislikes', profiles[person.id]['dislikes'], true]);
+
+                    if (profiles[person.id].hasOwnProperty('favshow')) dataForEmbed.fields.push(['Favorite TV Show', profiles[person.id]['favshow']]);
+                    if (profiles[person.id].hasOwnProperty('favmovie')) dataForEmbed.fields.push(['Favorite Movie', profiles[person.id]['favmovie']]);
 
                     // Custom fields
                     // Used for non-profile modules
@@ -95,14 +104,41 @@ module.exports = {
                     }
 
                     switch (args[0]){
+                        // Join args[1]..[n] with space
                         case 'name':
+                        case 'occupation':
+                        case 'country':
+                        case 'region':
+                        case 'favshow':
+                        case 'favmovie':
                             // Set data
-                            profiles[message.author.id]['name'] = args.slice(1).join(' ');
+                            profiles[message.author.id][args[0].toLowerCase()] = args.slice(1).join(' ');
 
                             // Confirm command worked
-                            message.channel.send(`Set ${message.author}'s name to **${args.slice(1).join(' ')}**`)
+                            message.channel.send(`Set ${message.author}'s ${args[0].toLowerCase()} to **${args.slice(1).join(' ')}**`);
                             break;
 
+                        // Join args[1]..[n] with slash
+                        case 'pronouns':
+                            // Set data
+                            profiles[message.author.id]['pronouns'] = args.slice(1).join('/');
+
+                            // Confirm command worked
+                            message.channel.send(`Set ${message.author}'s pronouns to **${args.slice(1).join('/')}**`);
+                            break;
+
+                        // Join args[1]..[n] with comma
+                        case 'likes':
+                        case 'dislikes':
+                        case 'languages':
+                            // Set data
+                            profiles[message.author.id][args[0].toLowerCase()] = args.slice(1).join(', ');
+
+                            // Confirm command worked
+                            message.channel.send(`Set ${message.author}'s ${args[0].toLowerCase()} to **${args.slice(1).join(', ')}**`);
+                            break;
+
+                        // Gender
                         case 'gender':
                             // Set data
                             profiles[message.author.id]['gender'] = args[1];
@@ -115,14 +151,7 @@ module.exports = {
                             message.channel.send(`Set ${message.author}'s gender to **${args[1]}**`);
                             break;
 
-                        case 'pronouns':
-                            // Set data
-                            profiles[message.author.id]['pronouns'] = args.slice(1).join('/');
-
-                            // Confirm command worked
-                            message.channel.send(`Set ${message.author}'s pronouns to **${args.slice(1).join('/')}**`);
-                            break;
-
+                        // Color
                         case 'color':
                             // Test for valid hex code (sans #)
                             if (/^[0-9A-F]{6}$/i.test(args[1])) {
@@ -135,26 +164,40 @@ module.exports = {
                             }
                             break;
 
-                        case 'country':
-                            // Set data
-                            profiles[message.author.id]['country'] = args.slice(1).join('/');
+                        default:
+                            message.reply(`please use \`${this.syntax}\` to change your profile\n**Available settings:** \`${aspects.join('\`, \`')}\``);
 
-                            // Confirm command worked
-                            message.channel.send(`Set ${message.author}'s country to **${args.slice(1).join('/')}**`);
-                            break;
-
-                        case 'region':
-                            // Set data
-                            profiles[message.author.id]['region'] = args.slice(1).join('/');
-
-                            // Confirm command worked
-                            message.channel.send(`Set ${message.author}'s region to **${args.slice(1).join('/')}**`);
-                            break;
                     }
 
                     // Save data
                     utils.write(profiles, 'profiles', 'profiles')
 
+                }
+            }
+        },
+
+        removefromprofile: {
+            name: 'removefromprofile',
+            help: 'Remove a part of your profile',
+            syntax: 'removefromprofile {setting}',
+            aliases: ['profileremove'],
+            main: function (message, args) {
+
+                if (args.length != 1) {
+                    message.reply(`please use \`${this.syntax}\` to remove something from your profile\n**Available settings:** \`${aspects.join('\`, \`')}\``);
+                } else {
+
+                    if (profiles.hasOwnProperty(message.author.id)) {
+
+                        if (profiles[message.author.id].hasOwnProperty(args[0].toLowerCase())){
+                            delete profiles[message.author.id][args[0].toLowerCase()];
+
+                            message.reply(`removed ${args[0]}!`);
+
+                            // Save data
+                            utils.write(profiles, 'profiles', 'profiles');
+                        }
+                    }
                 }
             }
         }
