@@ -180,7 +180,6 @@ bot.on('message', message => {
 
             // Check if bot has command
             if (!bot.commands.get(modules[module]).has(command)) continue;
-    
 
             // Command logging
             // Get the date object
@@ -189,6 +188,15 @@ bot.on('message', message => {
             // Log the message
             // [HH:mm:ss] (#) Name @ Server: command [args] 
             console.log(chalk`[${date.format(now, pattern)}] (${utils.getPermissionLevel(message)}) {grey ${message.author.username}} @ {grey ${message.guild.name}}: ${checkPrefixReturn[1]}`)
+
+            // Check for permissions
+            if (bot.commands.get(modules[module]).get(command).hasOwnProperty('permissionLevel') && utils.getPermissionLevel(message) < bot.commands.get(modules[module]).get(command).permissionLevel) {
+                console.log(chalk `[${date.format(now, pattern)}] {grey ${message.author.username}} did not have enough permissions to run that command! (Required: ${bot.commands.get(modules[module]).get(command).permissionLevel} , Had: ${utils.getPermissionLevel(message)})`);
+
+                message.reply(' sorry, you don\'t have enough permissions to run that command.');
+
+                continue;
+            }
     
             // Try to run command, if not reply that an error occured and log the error
             try {
@@ -196,7 +204,7 @@ bot.on('message', message => {
                 break;
             } catch (error) {
                 console.error(error);
-                message.reply('there was an error trying to execute that command!');
+                message.reply(config.locales.error);
                 var embed = utils.buildEmbed({
                     'title': 'An error has occured',
                     'color': '#d00000',

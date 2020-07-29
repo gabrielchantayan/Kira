@@ -36,8 +36,8 @@ module.exports = {
         requestedNumber = requestedNumber.split('.')
 
         if (currentNumber[0] < requestedNumber[0]) return true;
-        else if (currentNumber[1] < requestedNumber[1]) return true;
-        else if (currentNumber[2] < requestedNumber[2]) return true;
+        else if (currentNumber[0] <= requestedNumber[0] && currentNumber[1] < requestedNumber[1]) return true;
+        else if (currentNumber[0] <= requestedNumber[0] && currentNumber[1] <= requestedNumber[1] && currentNumber[2] < requestedNumber[2]) return true;
         else return false;  
     }
 }

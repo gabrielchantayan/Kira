@@ -1,3 +1,16 @@
+# Commit #12
+**28 July 2020**
+
+Added parameter `permissionLevel` in command object 
+
+Added native permission validation
+
+Added `permissionLevel` to all commands in `admin.js`
+
+Added `permissionLevel` to `permissions` in `bot settings.js`
+
+Fixed bug in `coreUtils.js` where if the local version number is greater than the remote version number, it would still prompt for an update
+
 # Commit #11
 **28 July 2020**
 
