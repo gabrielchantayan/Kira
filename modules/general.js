@@ -1,6 +1,7 @@
 const Discord = require('discord.js');      // Import Discord
 var config = require('../config.json');     // Import config
 var utils = require('../utils.js')          // Import utilities
+var version = require('../version.json')    // Version
 
 
 
@@ -9,7 +10,7 @@ module.exports = {
     module: {
         name: 'General',
         description: 'All-purpose commands',
-        version: '1.1.2',
+        version: '1.1.3',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/general.js',
         authors: ['Gab#2302']
     },
@@ -47,7 +48,7 @@ module.exports = {
                             { name: 'Uptime', value: utils.formatTime(message.client.uptime, 1), inline: true},
                             {
                                 name: `Information about ${message.client.user.username}`,
-                                value: `${message.client.user.username} is made using **Kira**, a Discord bot framework written by Gab#2302 in Node.JS. It's free, open-sourced, and [available on Github.](https://github.com/gabrielchantayan/Kira)`
+                                value: `**Version:** ${version.version}\n${message.client.user.username} is made using **Kira**, a Discord bot framework written by Gab#2302 in Node.JS. It's free, open-sourced, and [available on Github.](https://github.com/gabrielchantayan/Kira)`
                             }
                         );
                         

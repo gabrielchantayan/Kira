@@ -1,3 +1,28 @@
+# Commit #13
+**3 August 2020**
+
+Added version to `bot` command
+
+Added more colors for profile
+
+Added `warn`, `warns`, `removewarn`, `punishments`, and `setpunishments` commands to `mod.js`
+
+Added `random` subcommand to `profileset color` to give a random color
+
+Added `utils.isNumber()`
+
+Added more debug logging to `utils.js`
+
+Added `data/mod/` to .gitignore 
+
+Changed formatting for the message when a user doesn't have the required permissions to run a command
+
+Changed `returnWithEmptyStringedArray` parameter of `utils.read()` to `returnWithEmptyArray`; function updated accordingly
+
+Changed `author` field in `!TEMPLATE.js` to `YourDiscordTagHere#2302` from `Gab#2302`
+
+Changed "Finish loading modules" in `kira.js` to "Finished loading module"
+
 # Commit #12
 **28 July 2020**
 

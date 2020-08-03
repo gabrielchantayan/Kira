@@ -27,7 +27,7 @@ module.exports = {
         // Strinify data
         let stringifiedData = JSON.stringify(data, null, 2);
 
-        console.log(__dirname + `/data/${module}/${file}.json`)
+        debug.log(`Wrote to ${__dirname}/data/${module}/${file}.json`);
 
         // Write to ./data/MODULE/FILE.json
         fs.writeFile(__dirname + `/data/${module}/${file}.json`, stringifiedData, (err) => {
@@ -36,7 +36,7 @@ module.exports = {
     },
 
     // Read function
-    read: function (module, file, returnWithEmptyStringedArray = false) {
+    read: function (module, file, returnWithEmptyArray = false) {
 
         // Read the data
         // fs.readFile(`.\\data\\${module}\\${file}.json`, (err, data) => {
@@ -51,10 +51,12 @@ module.exports = {
         // });
         data = {};
         try {
+            debug.log(`Read from ${__dirname}/data/${module}/${file}.json`);
             return JSON.parse(fs.readFileSync(__dirname + `/data/${module}/${file}.json`));
         }
         catch (e) {
-            if (returnWithEmptyStringedArray) { return '{}' }
+            debug.log(`An error occurred. Returning with either {} or null`)
+            if (returnWithEmptyArray) { return {} }
             else return null;
         } 
  
@@ -235,5 +237,10 @@ module.exports = {
     // Capitalize
     capitalize: function(string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+    },
+
+    // Check if value is a number
+    isNumber: function(value) {
+        return /^\d+$/.test(value);
     }
 }

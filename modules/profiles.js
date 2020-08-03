@@ -6,13 +6,14 @@ var profiles = require('../data/profiles/profiles.json')    // Import profiles
 
 var aspects = ['name', 'gender', 'pronouns', 'color', 'country', 'region', 'occupation', 'languages', 'likes', 'dislikes', 'favshow', 'favmovie', 'socials'];
 
-var defaultColors = ['c03221','ba5a31', '2c423f', 'd4e4bc', '96abc7', '730513', '4e6b67', '56fcef', '07f0c5', '055f63', '327da8', '064894', '1f7d77'];
+var defaultColors = ['c03221', 'ba5a31', '2c423f', 'd4e4bc', '96abc7', '730513', '4e6b67', '56fcef', '07f0c5', '055f63', '327da8', '064894', '1f7d77', '313638', 'E8E9EB',
+    'E4B363', '6EA4BF', '41337A', '750D37', '3D314A', 'E6FDFF'];
 
 module.exports = {
     module: {
         name: 'Profiles',
         description: 'User profiles',
-        version: '1.1.3',
+        version: '1.1.4',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/profile.js',
         authors: ['Gab#2302']
     },
@@ -172,9 +173,13 @@ module.exports = {
                                 profiles[message.author.id]['color'] = args[1];
                                 message.channel.send(`Set ${message.author}'s profile color to **#${args[1]}**`);
                             }
+                            else if (args[1].toLowerCase() == 'random'){
+                                profiles[message.author.id]['color'] = defaultColors[Math.floor(Math.random() * defaultColors.length)];
+                                message.channel.send('I changed your profile color to a random color')
+                            }
                             else {
                                 profiles[message.author.id]['color'] = defaultColors[Math.floor(Math.random() * defaultColors.length)];
-                                message.channel.send('Invalid color code. Please use a correct hex code (i.e `3cdf4e` or `ABB65C`)\nI changed your profile color to a random color');
+                                message.channel.send('Invalid color code. Please use a correct hex code (i.e `3cdf4e` or `ABB65C`) or `random`\nI changed your profile color to a random color');
                             }
                             break;
 

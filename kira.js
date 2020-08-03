@@ -90,7 +90,7 @@ for (const fileName of commandFiles) {
         }
     }
 
-    console.log('Finished loading modules')
+    console.log('Finished loading module')
 }
 
 
@@ -193,7 +193,7 @@ bot.on('message', message => {
             if (bot.commands.get(modules[module]).get(command).hasOwnProperty('permissionLevel') && utils.getPermissionLevel(message) < bot.commands.get(modules[module]).get(command).permissionLevel) {
                 console.log(chalk `[${date.format(now, pattern)}] {grey ${message.author.username}} did not have enough permissions to run that command! (Required: ${bot.commands.get(modules[module]).get(command).permissionLevel} , Had: ${utils.getPermissionLevel(message)})`);
 
-                message.reply(' sorry, you don\'t have enough permissions to run that command.');
+                message.reply('Sorry, you don\'t have enough permissions to run that command.');
 
                 continue;
             }

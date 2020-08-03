@@ -9,7 +9,7 @@ module.exports = {
         description: 'Template Module',
         version: '0.0.1',
         source: 'https://raw.githubusercontent.com/gabrielchantayan/Kira/master/modules/!TEMPLATE.js',
-        authors: ['Gab#2302']
+        authors: ['YourDiscordTagHere#2302']
     },
 
     commands: {
